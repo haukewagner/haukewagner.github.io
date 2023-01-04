@@ -146,6 +146,33 @@ print(b)
 第一种与<code>b = np.expand_dims(a, axis=0)</code>相同,
 第二种与<code>b = np.expand_dims(a, axis=1)</code>相同
 
+<h2>7.筛查数据</h2>
+
+<pre>
+a=np.array([1,2,3,4,5])
+x = (a!=3)
+print(a[x])
+</pre>
+
+也可以结合|与&进行判断
+
+<pre>
+a = np.array([[1,2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+x = np.nonzero(a<8)
+print(x)
+</pre>
+
+<code>(array([0, 0, 0, 0, 1, 1, 1], dtype=int64), array([0, 1, 2, 3, 0, 1, 2], dtype=int64))</code>
+
+<pre>
+  a = np.array([[1,2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+  x = np.nonzero(a<8)
+  y = list(zip(x[0],x[1]))
+  print(y)
+</pre>
+
+<code>[(0, 0), (0, 1), (0, 2), (0, 3), (1, 0), (1, 1), (1, 2)]</code>
+
 
 </body>
 </html>
