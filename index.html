@@ -133,5 +133,14 @@ print(b)
 
 <code>[[1 2 3 4 5]]</code>凭空多了外面一层
 
+<pre>
+a = np.array([1,2,3,4,5])
+b = a[:,np.newaxis]
+print(b)
+</pre>
+
+<p>
+<code>[[1][2][3][4][5]]</code>   np.newaxis放在后面，变成了5X1的形式
+</p>
 </body>
 </html>
