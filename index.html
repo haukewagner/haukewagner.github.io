@@ -272,7 +272,19 @@ print(x)
 
 可以用endpoint=True包含7
 
+<pre>
+    a = [8,2,2,3,6,7,7]
+    b,c,d = np.unique(a,return_index=True, return_counts=True)
+    </pre>
+默认按值的大小升序排，返回索引以及计数
 
+unique()也能处理2d的情形，不加参数axis时，摊开来处理
+
+<pre>
+    a = [[8,2,2],[8,2,2],[7,8,8]]
+    b,c,d = np.unique(a,axis=0,return_index=True, return_counts=True)
+    </pre>
+axis=0按整行来处理
 
 
 </body>
