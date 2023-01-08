@@ -233,6 +233,19 @@ print(x)
 
 通过slice得到的array,算是一个引用？
 
+深复制用.copy()
+
+<h2>9. 四则运算</h2>
+
++-*/都是相同形状，对应位置做相应的运算
+
+<pre>
+    a = np.arange(18).reshape(3,6)
+    b = a.sum()#总和
+    c = a.sum(axis=0)#按列加
+    d = a.sum(axis=1)#按行加
+    </pre>
+
 
 </body>
 </html>
