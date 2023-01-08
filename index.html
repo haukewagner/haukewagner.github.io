@@ -201,7 +201,15 @@ print(x)
 
 <code>[ [[1] [3]]  [[5][6]]  [[2] [4]] ]</code> 作为纵向的堆叠
 
-    
+<pre>
+    a = np.arange(18)
+    b = np.hsplit(a,3)
+    print(b)
+    </pre>
+
+<code>[array([0, 1, 2, 3, 4, 5]), array([ 6,  7,  8,  9, 10, 11]), array([12, 13, 14, 15, 16, 17])]</code> 分割成若干array
+
+
 
 </body>
 </html>
