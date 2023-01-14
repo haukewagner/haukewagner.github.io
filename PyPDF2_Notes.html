@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<titil>PyPDF2 notes</titil>
+</head>
+
+<body>
+
+<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+<h1>PyPDF2 Notes </h1>
+
+<h2>简单合并</h2>
+
+<pre>
+from PyPDF2 import PdfMerger
+
+merger = PdfMerger()
+
+pdfs=['1.pdf','2.pdf','3.pdf','4.pdf']
+
+for i in pdfs:
+	merger.append(i)
+</pre>
+
+<h2>指定页码</h2>
+<pre>
+merger.append('5.pdf',pages=(0,4))
+</pre>
+
+上面的代码添加5.pdf文件的前4页
+
+<h2>旋转dpf页面，并保存文件</h2>
+
+<pre>
+import PyPDF2
+pdf_in = open('6.pdf', 'rb')
+pdf_reader = PyPDF2.PdfReader(pdf_in)
+pdf_writer = PyPDF2.PdfWriter()
+
+for pagenum in range(len(pdf_reader.pages)):
+        page = pdf_reader.pages[pagenum]
+        page.rotate(180)
+        pdf_writer.add_page(page)
+
+pdf_out = open('rotated.pdf', 'wb')
+pdf_writer.write(pdf_out)
+pdf_out.close()
+pdf_in.close()
+</pre>
+</body>
+</html>>
