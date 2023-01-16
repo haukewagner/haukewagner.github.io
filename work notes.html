@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<titil>work notes</titil>
+</head>
+
+<body>
+
+<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+<h1>work Notes </h1>
+
+<h2>dll viewer</h2>
+
+<h3>应用程序方法</h3>
+
+dll export viewer
+
+<h3>cmd调用dumbin方法</h3>
+
+<pre>
+dumbin -exports lib.dll
+</pre>
+
+<h2>python调用dll</h2>
+<pre>
+from ctypes import *
+dll = cdll.LoadLibrary('lib.dll')
+#dll = CDLL('lib.dll')
+#dll = WinDLL("lib.dll") 
+</pre>
+
+<h2>注册并调用com组件</h2>
+
+<pre>
+from os import system
+from comtypes.client import CreateObject
+
+system('kmlcom.exe /RegServer')
+#system('GHOST.exe /RegServer')
+
+km = CreateObject('kmlcom.COM')
+
+ss = GetModel()
+km.InputString(ss)
+
+system('GHOST.exe /UnRegServer')
+</pre>
+</body>
+</html>>
+
