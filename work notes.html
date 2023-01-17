@@ -49,7 +49,111 @@ system('kmlcom.exe /UnRegServer')
 
 <h2>文本解析成列表</h2>
 
-两列文本数据，中间为一个空格
+两列文本数据，中间为一个制表符和若干空格
+
+<pre>
+#县级以上公共数据转化为接近jionlp解析地址的数据结构{'province': 'xxx', 'city': 'xxx', 'county': 'xxx'}
+import json
+
+f = open("2000.txt","r",encoding="UTF-8")
+
+
+zhixiashi = ['北京市', '天津市', '上海市', '重庆市']
+prov = ['河北省', '山西省', '辽宁省', '吉林省', '黑龙江省', '江苏省', '浙江省', '安徽省', '福建省', '江西省', '山东省', '河南省', '湖北省', '湖南省', '广东省', '海南省', '四川省', '贵州省', '云南省', '陕西省', '甘肃省', '青海省', '台湾省', '内蒙古自治区', '广西壮族自治区', '西藏自治区', '宁夏回族自治区', '新疆维吾尔自治区', '香港特别行政区', '澳门特别行政区']
+
+
+def iszhixiashi(x):
+    for i in zhixiashi:
+        if i == x:
+            return True
+    return False
+def isprov(x):
+    for i in prov:
+        if x == i:
+            return True
+    return False
+
+
+lst = f.readlines()
+
+lenoflst = len(lst)
+cleanlst = []
+allres = []
+
+
+ispro = False
+isqu = False
+
+#判断是否是市辖区 没有县级单位直接到下个区
+#判断是否是特殊省份，直接到下个省份
+
+for i in range(1,lenoflst):
+    ty = lst[i].strip().split('	')
+    t = []
+    for j in ty:
+        j.strip()
+        t.append(j)
+    tt = t.copy()
+    cleanlst.append(tt)
+#print(cleanlst)
+
+pr = ''
+city = ''
+county = ''
+x={}
+
+for i in cleanlst:
+    if(iszhixiashi(i[1])):
+        if ispro == True:
+            x = {}
+            x['province'] = pr
+            x['city'] = city
+            x['county'] = None
+            y = x.copy()
+            allres.append(y)
+        pr = i[1]
+        city = i[1]
+        isqu = False
+        ispro = True
+    elif(isprov(i[1])):
+        if ispro == True:
+            x = {}
+            x['province'] = pr
+            x['city'] = pr
+            x['county'] = None
+            y = x.copy()
+            allres.append(y)
+        pr = i[1]
+        isqu = False
+        ispro = True
+    elif(int(i[0])%100 == 0):
+        if isqu == True:
+            x = {}
+            x['province'] = pr
+            x['city'] = city
+            x['county'] = None
+            y = x.copy()
+            allres.append(y)
+        city = i[1]
+        isqu = True
+        ispro = False
+    else:
+        x = {}
+        x['province'] = pr
+        x['city'] = city
+        x['county'] = i[1]
+        y = x.copy()
+        allres.append(y)
+        isqu = False
+        ispro = False
+#print(allres) 
+
+fileobj = open("addr2000.json","w+")
+p = json.dumps(allres,ensure_ascii = False)
+fileobj.write(p)
+f.close()
+fileobj.close()   
+</pre>
 
 
 </body>
