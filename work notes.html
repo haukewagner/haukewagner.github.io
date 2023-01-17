@@ -39,13 +39,19 @@ from comtypes.client import CreateObject
 system('kmlcom.exe /RegServer')
 #system('GHOST.exe /RegServer')
 
-km = CreateObject('kmlcom.COM')
+km = CreateObject('SomeApi.COM')
 
 ss = GetModel()
 km.InputString(ss)
 
 system('kmlcom.exe /UnRegServer')
 </pre>
+
+<h2>文本解析成列表</h2>
+
+两列文本数据，中间为一个空格
+
+
 </body>
 </html>>
 
