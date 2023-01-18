@@ -87,7 +87,7 @@ isqu = False
 #判断是否是市辖区 没有县级单位直接到下个区
 #判断是否是特殊省份，直接到下个省份
 
-for i in range(1,lenoflst):
+for i in range(lenoflst):
     ty = lst[i].strip().split('	')
     t = []
     for j in ty:
@@ -148,12 +148,60 @@ for i in cleanlst:
         ispro = False
 #print(allres) 
 
-fileobj = open("addr2000.json","w+")
+fileobj = open("addr2000.json","w+",encoding = 'utf-8')
 p = json.dumps(allres,ensure_ascii = False)
 fileobj.write(p)
 f.close()
 fileobj.close()   
 </pre>
+
+<h2>地址匹配</h2>
+
+<h3>字符串严格匹配</h3>
+<pre>
+import json
+
+fprev = open("addr2000.json","r",encoding =  'UTF-8')
+freso = open("addr2020.json","r",encoding =  'UTF-8')
+ftosave = open("addr2020notpared.json","w",encoding =  'UTF-8')
+
+contentold = fprev.read()
+contentnew = freso.read()
+
+data2000 = json.loads(contentold)
+data2020 = json.loads(contentnew)
+
+lenofold = len(data2000)
+lenofnew = len(data2020)
+
+for i in range(lenofold):
+    data2000[i]['id'] = i
+    data2000[i]['isPared'] = False
+    
+for i in range(lenofnew):
+    data2020[i]['id'] = i
+    data2020[i]['isPared'] = False
+
+for i in range(lenofold):
+    lastpr = data2000[i]["province"]
+    lastci = data2000[i]["city"]
+    lastct = data2000[i]["county"]
+    for j in range(lenofnew):
+        if lastpr == data2020[j]["province"] and lastci == data2020[j]["city"] and lastct == data2020[j]["county"]:
+            data2000[i]['isPared'] = True
+            data2020[j]['isPared'] = True
+            data2000[i]['paredTo'] = j
+            data2020[j]['paredTo'] = i
+            break
+
+fprev.close()
+freso.close()
+ftosave.close()
+
+</pre>
+存在的问题，不够直接
+
+<h3>字符串模糊匹配</h3>
 
 
 </body>
